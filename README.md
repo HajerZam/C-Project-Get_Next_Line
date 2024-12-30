@@ -21,18 +21,21 @@ The goal of **get_next_line** is to create a function that reads one line at a t
     - Understand how file descriptors work in C (`open`, `read`, `close`).
     - `stdin`, `stdout`, and file inputs.
     
-    Resource: [Understanding File Descriptors](https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/)
+    Resource:
+               [Understanding File Descriptors](https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/)
+               - https://youtu.be/HQNsriyMhtY?si=k3StboOVk1yzZ7g_
+               - https://youtu.be/Hzg3kCHJcxI?si=LXMRD3p6mHkuIsYc
     
-2. **Reading Data with Buffers**:
+3. **Reading Data with Buffers**:
     - Learn how `read` works and how to use it to handle chunks of data.
     - Resource: `man 2 read`
-3. **Dynamic Memory Management**:
+4. **Dynamic Memory Management**:
     - Master `malloc`, `free`, and resizing strings dynamically.
     - Resource: [Dynamic Memory Allocation in C](https://www.tutorialspoint.com/cprogramming/c_dynamic_memory_allocation.htm)
-4. **String Manipulation**:
+5. **String Manipulation**:
     - Learn functions like `strchr`, `strdup`, `strjoin`, and `strlen`.
     - Resource: Your **libft** functions or [C Library String Functions](https://cplusplus.com/reference/cstring/).
-5. **Static Variables**:
+6. **Static Variables**:
     - Use static variables to store persistent data between function calls.
     
     Resource: [Static Variables in C](https://www.geeksforgeeks.org/static-variables-in-c/)
@@ -55,38 +58,3 @@ Write a small program to:
 2. Test reading data in chunks to understand how partial lines behave.
 
 ---
-
-### **4. Core Steps for Implementation**
-
-### **Step 1: Create the Basic Structure**
-
-- Write a skeleton function:
-    
-    ```c
-    char *get_next_line(int fd)
-    {
-    	//get creative pal
-    }
-    
-    ```
-    
-- Test reading from a file and returning a single line.
-
-### **Step 2: Read and Store Data**
-
-- Use `read(fd, buffer, BUFFER_SIZE)` to read chunks of data.
-- Store the data in a static variable to handle multiple calls.
-
-### **Step 3: Find and Return a Line**
-
-- Use `strchr` to locate the newline (`\n`) character in the stored buffer.
-- Return everything up to the newline and keep the rest for the next call.
-
-### **Step 4: Handle Dynamic Strings**
-
-- Use a helper function like `ft_strjoin` to concatenate buffers dynamically.
-
-### **Step 5: Manage Edge Cases**
-
-- EOF: Return `NULL` when there’s no more data.
-- Errors: Handle invalid `fd` or memory allocation failures.
