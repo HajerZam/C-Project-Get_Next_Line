@@ -259,3 +259,7 @@ Hello\nWorld\n42\n
     - 
         
         [Medium](https://medium.com/%40ahmed.ezzouine/1337-ft-get-next-line-file-i-o-7f55762e2445?utm_source=chatgpt.com)
+
+    -
+- Explanation Video :
+              - https://www.youtube.com/watch?v=8E9siq7apUU&pp=ygUKI2xpbmVyZWFkcw%3D%3D     
