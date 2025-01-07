@@ -2,6 +2,18 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+void	free_stashes(char *stashes[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		if (stashes[i])
+		{
+			free(stashes[i]);
+			stashes[i] = NULL;
+		}
+	}
+}
+
 int	main(void)
 {
 	int		fd1 = open("soldier.txt", O_RDONLY);
