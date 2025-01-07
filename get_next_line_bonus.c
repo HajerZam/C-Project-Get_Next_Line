@@ -9,7 +9,7 @@
 /*   Updated: 2025/01/07 12:03:36 by halzamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "get_next_line_bonus.h"
 
 static char	*extract_line(char **stash)
 {
