@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdio.h>
 
-# define BUFFER_SIZE 32
+//# define BUFFER_SIZE 32
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s1);
