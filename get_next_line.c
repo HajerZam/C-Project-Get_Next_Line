@@ -6,10 +6,10 @@
 /*   By: halzamma <halzamma@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:46:01 by halzamma          #+#    #+#             */
-/*   Updated: 2025/01/07 12:05:24 by halzamma         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:39:06 by halzamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "get_next_line.h"
 
 static char	*extract_line(char **stash)
 {
