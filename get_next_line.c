@@ -23,6 +23,8 @@ static char *extract_line(char **stash)
     while ((*stash)[i] && (*stash)[i] != '\n')
         i++;
     line = ft_substr(*stash, 0, i + ((*stash)[i] == '\n'));
+    if (!line)
+        return (NULL);
     if ((*stash)[i] == '\n')
         new_stash = ft_strdup(&(*stash)[i + 1]);
     else
@@ -49,12 +51,16 @@ static char *read_to_stash(int fd, char *stash)
         if (bytes_read == -1)
         {
             free(buffer);
+            free(stash);
             return (NULL);
         }
         buffer[bytes_read] = '\0';
         stash = ft_strjoin_free(stash, buffer);
         if (!stash)
-            break;
+        {
+            free(buffer);
+            return (NULL);
+        }
     }
     free(buffer);
     return (stash);
@@ -63,13 +69,20 @@ static char *read_to_stash(int fd, char *stash)
 char	*get_next_line(int fd)
 {
 	static char	*stash;
+    char        *line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = read_to_stash(fd, stash);
 	if (!stash)
 		return (NULL);
-	return (extract_line(&stash));
+	line = extract_line(&stash);
+    if (!line)
+    {
+        free(stash);
+        stash = NULL;
+    }
+	return (line);
 }
 
 /*int	main(void)

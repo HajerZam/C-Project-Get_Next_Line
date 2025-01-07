@@ -62,6 +62,8 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	size_t	len2;
 	size_t	i;
 
+	if (!s1 || !s2)
+		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	joined = malloc(len1 + len2 + 1);
