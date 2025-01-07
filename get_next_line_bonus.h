@@ -6,10 +6,10 @@
 /*   By: halzamma <halzamma@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:05:03 by halzamma          #+#    #+#             */
-/*   Updated: 2025/01/03 14:05:03 by halzamma         ###   ########.fr       */
+/*   Updated: 2025/01/07 11:59:26 by halzamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef GET_NEXT_LINE_BONUS_H
+
 # define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>

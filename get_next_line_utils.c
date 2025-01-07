@@ -6,10 +6,10 @@
 /*   By: halzamma <halzamma@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:49:36 by halzamma          #+#    #+#             */
-/*   Updated: 2024/12/30 11:49:36 by halzamma         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:03:05 by halzamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+
 
 char	*ft_strdup(const char *s1)
 {
