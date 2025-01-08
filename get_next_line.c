@@ -34,26 +34,36 @@ static char	*extract_line(char **stash)
 	return (line);
 }
 
-static char	*allocate_buffer(void)
+static char	*handle_error(char *buffer, char *stash)
 {
-	char	*buffer;
-
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	return (buffer);
+	free(buffer);
+	free(stash);
+	return (NULL);
 }
 
 static char	*read_to_stash(int fd, char *stash)
 {
 	char	*buffer;
+	ssize_t	bytes_read;
 
 	if (!stash)
 		stash = ft_strdup("");
-	buffer = allocate_buffer();
+	if (!stash)
+		return (NULL);
+	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	stash = read_and_join(fd, buffer, stash);
+	bytes_read = 1;
+	while (!ft_strchr(stash, '\n') && bytes_read > 0)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+			return (handle_error(buffer, stash));
+		buffer[bytes_read] = '\0';
+		stash = ft_strjoin_free(stash, buffer);
+		if (!stash)
+			return (handle_error(buffer, NULL));
+	}
 	free(buffer);
 	return (stash);
 }
