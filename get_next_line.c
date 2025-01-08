@@ -11,65 +11,57 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static char *extract_line(char **stash)
+static char	*extract_line(char **stash)
 {
-    char    *line;
-    char    *new_stash;
-    size_t  i;
+	char	*line;
+	char	*new_stash;
+	size_t	i;
 
-    if (!*stash || **stash == '\0')
-        return (NULL);
-    i = 0;
-    while ((*stash)[i] && (*stash)[i] != '\n')
-        i++;
-    line = ft_substr(*stash, 0, i + ((*stash)[i] == '\n'));
-    if (!line)
-        return (NULL);
-    if ((*stash)[i] == '\n')
-        new_stash = ft_strdup(&(*stash)[i + 1]);
-    else
-        new_stash = NULL;
-    free(*stash);
-    *stash = new_stash;
-    return (line);
+	if (!*stash || **stash == '\0')
+		return (NULL);
+	i = 0;
+	while ((*stash)[i] && (*stash)[i] != '\n')
+		i++;
+	line = ft_substr(*stash, 0, i + ((*stash)[i] == '\n'));
+	if (!line)
+		return (NULL);
+	if ((*stash)[i] == '\n')
+		new_stash = ft_strdup(&(*stash)[i + 1]);
+	else
+		new_stash = NULL;
+	free(*stash);
+	*stash = new_stash;
+	return (line);
 }
 
-static char *read_to_stash(int fd, char *stash)
+static char	*allocate_buffer(void)
 {
-    char    *buffer;
-    ssize_t bytes_read;
+	char	*buffer;
 
-    if (!stash)
-        stash = ft_strdup("");
-    buffer = malloc(BUFFER_SIZE + 1);
-    if (!buffer)
-        return (NULL);
-    bytes_read = 1;
-    while (!ft_strchr(stash, '\n') && bytes_read > 0)
-    {
-        bytes_read = read(fd, buffer, BUFFER_SIZE);
-        if (bytes_read == -1)
-        {
-            free(buffer);
-            free(stash);
-            return (NULL);
-        }
-        buffer[bytes_read] = '\0';
-        stash = ft_strjoin_free(stash, buffer);
-        if (!stash)
-        {
-            free(buffer);
-            return (NULL);
-        }
-    }
-    free(buffer);
-    return (stash);
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	return (buffer);
+}
+
+static char	*read_to_stash(int fd, char *stash)
+{
+	char	*buffer;
+
+	if (!stash)
+		stash = ft_strdup("");
+	buffer = allocate_buffer();
+	if (!buffer)
+		return (NULL);
+	stash = read_and_join(fd, buffer, stash);
+	free(buffer);
+	return (stash);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-    char        *line;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -77,11 +69,11 @@ char	*get_next_line(int fd)
 	if (!stash)
 		return (NULL);
 	line = extract_line(&stash);
-    if (!line)
-    {
-        free(stash);
-        stash = NULL;
-    }
+	if (!line)
+	{
+		free(stash);
+		stash = NULL;
+	}
 	return (line);
 }
 
