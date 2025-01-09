@@ -16,7 +16,14 @@
 # include <unistd.h>
 # include <stdio.h>
 
-//# define BUFFER_SIZE 32
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# if BUFFER_SIZE < 0
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 0
+# endif
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s1);
