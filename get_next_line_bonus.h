@@ -14,7 +14,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -23,6 +22,10 @@
 # if BUFFER_SIZE < 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 0
+# endif
+
+# ifndef FD_SETSIZE
+# define FD_SETSIZE 1024
 # endif
 
 char	*get_next_line(int fd);
