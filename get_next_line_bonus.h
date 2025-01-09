@@ -25,7 +25,7 @@
 # endif
 
 # ifndef FD_SETSIZE
-# define FD_SETSIZE 1024
+#  define FD_SETSIZE 1024
 # endif
 
 char	*get_next_line(int fd);
