@@ -2,6 +2,8 @@
 <p align="center">
   My second project in <strong>42 Common Core</strong> — let's goooooo (๑•̀ ᴗ•́)۷✧<br>
   A function that reads from a file descriptor, line by line, with dynamic memory management!
+</p>
+<p align="center">
   <img src="https://img.shields.io/badge/Language-C-blue.svg" />
   <img src="https://img.shields.io/github/languages/top/HajerZam/C-Project-Get_Next_Line?style=flat-square" />
   <img src="https://img.shields.io/github/repo-size/HajerZam/C-Project-Get_Next_Line?style=flat-square" />
