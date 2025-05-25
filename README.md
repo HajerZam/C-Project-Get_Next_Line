@@ -1,131 +1,198 @@
-# 🚀 Get_Next_Line Project
-
-My second project in **42 Common Core** — let's goooooo (๑•̀ ᴗ•́)۷✧  
-A function that reads a file descriptor line-by-line, handling multiple fds and dynamic memory!
-
----
-
-## 📊 Project Statistics
-
-| Metric                 | Details               |
-|------------------------|-----------------------|
-| Project Name           | Get_Next_Line         |
-| Functions Implemented  | 1 main + multiple helpers |
-| Key Concepts           | File descriptors, buffers, static vars, dynamic memory |
-| Bonus                  | Support multiple FDs  |
-| Time Spent             | ~2 weeks              |
-| Difficulty             | Medium - High         |
+<h1 align="center">🚀 Get_Next_Line</h1>
+<p align="center">
+  My second project in <strong>42 Common Core</strong> — let's goooooo (๑•̀ ᴗ•́)۷✧<br>
+  A function that reads from a file descriptor, line by line, with dynamic memory management!
+  <img src="https://img.shields.io/badge/Language-C-blue.svg" />
+  <img src="https://img.shields.io/github/languages/top/HajerZam/C-Project-Get_Next_Line?style=flat-square" />
+  <img src="https://img.shields.io/github/repo-size/HajerZam/C-Project-Get_Next_Line?style=flat-square" />
+  <img src="https://img.shields.io/github/last-commit/HajerZam/C-Project-Get_Next_Line?style=flat-square" />
+  <img src="https://img.shields.io/github/issues/HajerZam/C-Project-Get_Next_Line?style=flat-square" />
+  <img src="https://img.shields.io/badge/42-Common%20Core-critical" />
+  <img src="https://img.shields.io/badge/score-112-brightgreen?style=flat-square">
+</p>
 
 ---
 
-## 🎯 Project Goals
+## 📊 Project Overview
 
-- Create `get_next_line(int fd)` to read **one line at a time** from any file descriptor or `stdin`.
-- Handle files of **any length** using dynamic buffers.
-- Support reading from **multiple file descriptors simultaneously** (bonus).
-
----
-
-## 📚 Key Concepts & Topics
-
-### 1. File Descriptors & I/O
-
-- Understanding `open`, `read`, `close`, and file descriptor basics (`stdin`, `stdout`, etc.).  
-- [GeeksforGeeks Guide](https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/)  
-- [YouTube Intro 1](https://youtu.be/HQNsriyMhtY?si=k3StboOVk1yzZ7g_)  
-- [YouTube Intro 2](https://youtu.be/Hzg3kCHJcxI?si=LXMRD3p6mHkuIsYc)
-
-### 2. Buffers & Reading Data
-
-- Using `read` to fetch chunks of data.  
-- Handling partial reads and incomplete lines.  
-- Reference: `man 2 read`
-
-### 3. Dynamic Memory Management
-
-- Allocating and freeing memory dynamically (`malloc`, `free`).  
-- Resizing strings as needed.  
-- [Tutorialspoint on malloc/free](https://www.tutorialspoint.com/cprogramming/c_dynamic_memory_allocation.htm)
-
-### 4. String Utilities
-
-- Functions like `strchr`, `strdup`, `strjoin`, `strlen`.  
-- Use your **libft** or standard C functions.
-
-### 5. Static Variables
-
-- Store leftover data between calls with static variables.  
-- [GeeksforGeeks: Static Variables](https://www.geeksforgeeks.org/static-variables-in-c/)
+| Metric                 | Details                             |
+|------------------------|-------------------------------------|
+| 📁 Project Name         | get_next_line                      |
+| 🧠 Key Concepts         | File descriptors, buffers, dynamic memory |
+| 🧩 Bonus Features       | Support for multiple FDs           |
+| ⏱️ Time Spent           | ~2 weeks                           |
+| 🔥 Difficulty           | Medium – High                      |
 
 ---
 
-## 📝 How `get_next_line` Works — Overview
+## 🎯 Goals
 
-| Step                      | Explanation |
-|---------------------------|-------------|
-| **Validate input**        | Check file descriptor and buffer size. |
-| **Read into buffer**      | Read chunks of `BUFFER_SIZE` from fd. |
-| **Store leftover (stash)**| Save leftover after newline for next call. |
-| **Find newline**          | Locate `\n` in stash to separate lines. |
-| **Return one line**       | Return extracted line; keep stash for next. |
-| **Handle EOF**            | Return `NULL` when no more lines. |
+Build a robust version of:
 
----
+```c
+char *get_next_line(int fd);
+````
 
-## ⚙️ Helpers Used
+That will:
 
-- `ft_strchr` — Find newline character.  
-- `ft_substr` — Extract substring from stash.  
-- `ft_strdup` — Duplicate string.  
-- `ft_strjoin_free` — Join stash + buffer & free old stash.
+* ✅ Read and return **one line at a time**
+* ✅ Work with **any valid file descriptor**
+* ✅ Handle **multiple FDs** (bonus)
+* ✅ Use dynamic memory — no fixed-size line limits
+* ✅ Preserve remaining buffer data between calls
 
 ---
 
-## 🔍 Example Walkthrough
+## 📚 Core Concepts & Skills
 
-File content:
+### 🔧 File Descriptors & Low-Level I/O
+
+* Work with `open`, `read`, `close`
+* Understand `stdin`, `stdout`, `stderr`
+* 🔗 [GeeksforGeeks - File Descriptors](https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/)
+
+### 🧵 Buffers & Persistent State
+
+* Use a static buffer (stash) per FD to track leftover data
+* Handle partial reads and newline detection
+
+### 🧠 Dynamic Memory
+
+* Use `malloc`, `free`, `strjoin`, `strdup` correctly
+* Clean up to avoid memory leaks
+
+### 🧰 String Utilities
+
+Recreate or reuse:
+
+* `strchr` → Find `\n`
+* `strdup` → Duplicate memory
+* `strjoin`, `substr` → Combine & extract string parts
+
+---
+
+## ⚙️ Project Flow (How it works)
+
+```c
+get_next_line(fd)
+    ↓
+[Read BUFFER_SIZE bytes]
+    ↓
+[Append to stash]
+    ↓
+[Search for newline '\n']
+    ↓
+[Extract line + update stash]
+    ↓
+Return line
+```
+
+| Step              | Description                        |
+| ----------------- | ---------------------------------- |
+| ✅ Validate input  | Check for valid fd and buffer size |
+| 📥 Read from fd   | Until newline or EOF               |
+| 💾 Save remainder | Static stash retains leftover data |
+| 🧻 Extract line   | Up to and including `\n`           |
+| 🔚 Handle EOF     | Return `NULL` when done            |
+
+---
+
+## 🔧 Helper Functions
+
+| Function          | Purpose                               |
+| ----------------- | ------------------------------------- |
+| `ft_strchr`       | Locate `\n` in stash                  |
+| `ft_strdup`       | Duplicate a string                    |
+| `ft_strjoin_free` | Join stash and buffer, free old stash |
+| `ft_substr`       | Extract a substring                   |
+
+---
+
+## 🧪 Example Execution
+
+Input file:
+
+```
 Hello\nWorld\n42\n
+```
 
-| Call | Stash (static var)      | Returned Line |
-|-------|------------------------|--------------|
-| 1     | "Hello\nWorld\n"        | "Hello\n"    |
-| 2     | "World\n"               | "World\n"    |
-| 3     | "42\n"                  | "42\n"       |
-| 4     | (empty, EOF reached)    | `NULL`       |
-
----
-
-## 🔄 Flowchart of Execution
-
-[Read Buffer] -> Combine with -> [Stash]
--> Extract Line -> Return Line
--> Save leftover -> [Stash for next call]
-
+| Call # | Returned Line | Stash After Call |
+| ------ | ------------- | ---------------- |
+| 1      | `Hello\n`     | `World\n42\n`    |
+| 2      | `World\n`     | `42\n`           |
+| 3      | `42\n`        | \`\` (empty)     |
+| 4      | `NULL`        | EOF reached      |
 
 ---
 
-## 📚 Additional Resources
+## 🔄 Memory & Flowchart
 
-- [Official 42 docs on Get_Next_Line](https://harm-smits.github.io/42docs/projects/get_next_line)  
-- [Example GNL repo by ayogun](https://github.com/ayogun/get_next_line?utm_source=chatgpt.com)  
-- [Example GNL repo by nickdotht](https://github.com/nickdotht/get_next_line?utm_source=chatgpt.com)  
-- [Medium Article #1](https://medium.com/%40ayogun/master-file-i-o-operations-with-42s-get-next-line-project-5fb001d1fff5?utm_source=chatgpt.com)  
-- [Medium Article #2](https://medium.com/%40ahmed.ezzouine/1337-ft-get-next-line-file-i-o-7f55762e2445?utm_source=chatgpt.com)  
-- [Explanation Video](https://www.youtube.com/watch?v=8E9siq7apUU&pp=ygUKI2xpbmVyZWFkcw%3D%3D)
+```
+[read(fd) → BUFFER] → [append to stash]
+       ↓
+[find newline] → [split stash]
+       ↓
+[return line] + [keep leftover in static stash]
+```
+
+> Tip: Use `valgrind` or `leaks` to verify no memory is left unfreed!
+
+---
+
+## 🔍 Bonus: Multiple FDs
+
+```c
+int fd1 = open("file1.txt", O_RDONLY);
+int fd2 = open("file2.txt", O_RDONLY);
+
+get_next_line(fd1); // reads from file1
+get_next_line(fd2); // independently reads from file2
+```
+
+Your implementation must track separate stash buffers for each FD.
+Use something like a static array indexed by FD, or a custom linked list (if you're daring!).
+
+---
+
+## 📦 Resources
+
+* [42 Project Docs](https://harm-smits.github.io/42docs/projects/get_next_line)
+* [Repo: ayogun](https://github.com/ayogun/get_next_line)
+* [Repo: nickdotht](https://github.com/nickdotht/get_next_line)
+* [Medium: Deep Dive #1](https://medium.com/%40ayogun/master-file-i-o-operations-with-42s-get-next-line-project-5fb001d1fff5)
+* [Medium: Deep Dive #2](https://medium.com/%40ahmed.ezzouine/1337-ft-get-next-line-file-i-o-7f55762e2445)
+* [YouTube: Line by Line](https://www.youtube.com/watch?v=8E9siq7apUU)
+
+---
+
+## ✅ Checklist
+
+* [x] Reads 1 line at a time (with `\n`)
+* [x] Handles files of any size
+* [x] Supports multiple FDs (bonus)
+* [x] Uses only allowed functions
+* [x] No memory leaks
+* [x] Makefile with all required rules
+* [x] Clean, modular code (helpers, no spaghetti!)
 
 ---
 
 ## 💬 Final Thoughts
 
-`get_next_line` pushed my understanding of:
+`get_next_line` taught me how to:
 
-- File I/O at a low level  
-- Buffer management and dynamic memory  
-- Persistent state with static variables  
-- Modular helper functions & clean code structure  
+* Think like the OS (I/O is tricky!)
+* Work with static memory across function calls
+* Build resilient and reusable logic in C
+* Handle edge cases and memory carefully
 
-This is a key building block for larger C projects and system programming!
+> Master this project, and buffer logic will never scare you again 😤
 
 ---
 
-> ✧ Questions, feedback, or collabs? Hit me up anytime!  
+<p align="center">
+Made with 💻, ⚔️ and lots of malloc debugging.
+</p>
+
+
+---
