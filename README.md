@@ -179,14 +179,42 @@ Use something like a static array indexed by FD, or a custom linked list (if you
 
 ---
 
-## 💬 Final Thoughts
+## Testing 
 
-`get_next_line` taught me how to:
+`get_next_line` simple main:
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include "get_next_line.h"
 
-* Think like the OS (I/O is tricky!)
-* Work with static memory across function calls
-* Build resilient and reusable logic in C
-* Handle edge cases and memory carefully
+int main(int argc, char **argv)
+{
+    int     fd;
+    char    *line;
+    int     i = 1;
+
+    if (argc < 2)
+        fd = 0; // stdin
+    else
+        fd = open(argv[1], O_RDONLY);
+    if (fd < 0)
+        return (perror("open"), 1);
+    while ((line = get_next_line(fd)))
+    {
+        printf("[%d] %s", i++, line);
+        free(line);
+    }
+    close(fd);
+    return (0);
+}
+```
+
+```bash
+for n in 1 2 5 10 42 9999 10000000; do
+  cc -Wall -Wextra -Werror -D BUFFER_SIZE=$n \
+     get_next_line.c get_next_line_utils.c main.c -o gnl && ./gnl test.txt
+done
+```
 
 > Master this project, and buffer logic will never scare you again 😤
 
